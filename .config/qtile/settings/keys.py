@@ -6,10 +6,10 @@
 
 from libqtile.config import Key
 from libqtile.lazy import lazy
-
+import os
 
 mod = "mod4"
-
+screenshot_dir = os.path.expanduser("~/screenshots")
 keys = [Key(key[0], key[1], *key[2:]) for key in [
     # ------------ Window Configs ------------
 
@@ -76,8 +76,8 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # ([mod, "shift"], "r", lazy.spawn("redshift -x")),
 
     # Screenshot
-    ([mod], "s", lazy.spawn("scrot")),
-    ([mod, "shift"], "s", lazy.spawn("scrot -s")),
+    ([mod], "s", lazy.spawn(f"scrot '{screenshot_dir}/%Y-%m-%d_%H:%M:%S.png' -e 'xclip -selection clipboard -t image/png -i $f'")),
+    ([mod, "shift"], "s", lazy.spawn(f"scrot -s '{screenshot_dir}/%Y-%m-%d_%H:%M:%S.png' -e 'xclip -selection clipboard -t image/png -i $f'")),
 
     # ------------ Hardware Configs ------------
 
